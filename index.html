@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menù Digitale - DEFINE Cocktail Culture</title>
+    <!-- Font Google: Roboto per il testo, Playfair Display per i titoli -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0d0d0d;        /* Sfondo quasi nero */
+            --logo-color: #b07e86;      /* Rosa/Malva del tuo logo (esadecimale estratto) */
+            --card-bg: #1a1a1a;        /* Sfondo delle card cocktail */
+            --text-main: #ffffff;      /* Testo bianco */
+            --text-muted: #cccccc;    /* Testo secondario grigio chiaro */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 30px; /* Spazio per il footer */
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .logo-container {
+            max-width: 250px;
+            margin: 0 auto 20px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: 0;
+            font-weight: 300;
+        }
+
+        /* Contenitore Categorie (Scollabile) */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            background: rgba(13, 13, 13, 0.95); /* Effetto sfocatura al passaggio */
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .cat-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background: var(--logo-color);
+            color: var(--bg-color);
+            border-color: var(--logo-color);
+        }
+
+        /* Contenitore Menù */
+        .menu-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--logo-color);
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(176, 126, 134, 0.3); /* Linea sottile del colore del logo */
+            padding-bottom: 5px;
+        }
+
+        /* Card Cocktail */
+        .cocktail-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border: 1px solid rgba(255,255,255,0.05); /* Bordo impercettibile */
+        }
+
+        .cocktail-details {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .cocktail-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .cocktail-ingredients {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        .cocktail-price {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--logo-color);
+            white-space: nowrap;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .logo-container { max-width: 180px; }
+            .category-title { font-size: 1.5rem; }
+            .cocktail-card { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <!-- Sostituisci "https://imgur.com/ftOYdOy" con l'indirizzo dell'immagine del tuo logo online -->
+            <img src="URL_DEL_TUO_LOGO_QUI" alt="DEFINE Cocktail Culture Logo">
+        }
+        </div>
+        <p class="subtitle">Sfoglia il nostro menù digitale</p>
+    </header>
+
+    <!-- Pulsanti Filtro Categorie -->
+    <nav class="category-nav">
+        <button class="cat-btn active" onclick="filterCategory('all')">Tutti</button>
+        <button class="cat-btn" onclick="filterCategory('signature')">Signature</button>
+        <button class="cat-btn" onclick="filterCategory('classici')">Classici</button>
+        <button class="cat-btn" onclick="filterCategory('analcolici')">Analcolici</button>
+        <button class="cat-btn" onclick="filterCategory('food')">Food</button>
+    </nav>
+
+    <main class="menu-container" id="menuContainer">
+        <!-- I contenuti vengono caricati dinamicamente tramite JavaScript -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DEFINE Cocktail Culture. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        // DATI DEL MENÙ: Puoi modificarli, aggiungerli o rimuoverli facilmente qui sotto!
+        const menuData = [
+            {
+                category: "signature",
+                categoryName: "Define Signature Cocktails",
+                items: [
+                    { name: "Negroni Meccanico", price: "€ 12.00", ingredients: "Gin, Vermouth Rosso, Bitter, Essenza di Ingranaggi." },
+                    { name: "Mezcal Logic", price: "€ 13.00", ingredients: "Mezcal, Lime, Agave, Bitter al Cioccolato." }
+                ]
+            },
+            {
+                category: "classici",
+                categoryName: "I Classici Intramontabili",
+                items: [
+                    { name: "Old Fashioned", price: "€ 11.00", ingredients: "Bourbon, Zucchero, Angostura." },
+                    { name: "Mojito", price: "€ 10.00", ingredients: "Rum Bianco, Menta, Lime, Zucchero, Soda." }
+                ]
+            },
+            {
+                category: "analcolici",
+                categoryName: "Cocktail Analcolici",
+                items: [
+                    { name: "Tropical Machine", price: "€ 8.00", ingredients: "Succo di Mango, Maracuja, Lime, Ginger Beer." }
+                ]
+            },
+            {
+                category: "food",
+                categoryName: "Food & Snacks",
+                items: [
+                    { name: "Tagliere Define", price: "€ 15.00", ingredients: "Selezione di salumi e formaggi locali." }
+                ]
+            }
+        ];
+
+        function renderMenu(filter = 'all') {
+            const container = document.getElementById('menuContainer');
+            container.innerHTML = '';
+
+            const filteredData = menuData.filter(section => {
+                if (filter === 'all') return true;
+                return section.category === filter;
+            });
+
+            filteredData.forEach(section => {
+                let sectionHTML = `
+                    <div class="category-section" data-category="${section.category}">
+                        <h2 class="category-title">${section.categoryName}</h2>
+                `;
+
+                section.items.forEach(item => {
+                    sectionHTML += `
+                        <div class="cocktail-card">
+                            <div class="cocktail-details">
+                                <span class="cocktail-name">${item.name}</span>
+                                <span class="cocktail-ingredients">${item.ingredients}</span>
+                            </div>
+                            <span class="cocktail-price">${item.price}</span>
+                        </div>
+                    `;
+                });
+
+                sectionHTML += </div>;
+                container.innerHTML += sectionHTML;
+            });
+        }
+
+        function filterCategory(category) {
+            // Gestione classe attiva sui bottoni
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            renderMenu(category);
+        }
+
+        // Caricamento iniziale
+        renderMenu('all');
+    </script>
+</body>
+</html>
